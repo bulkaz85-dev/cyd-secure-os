@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Flash CYD Secure OS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+<style>
+  body {
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    max-width: 640px;
+    margin: 40px auto;
+    padding: 0 20px;
+    background: #0d1117;
+    color: #e6edf3;
+    line-height: 1.5;
+  }
+  h1 { color: #58a6ff; }
+  .step {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  .warn {
+    background: #3a2a00;
+    border: 1px solid #9e6a03;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 16px 0;
+  }
+  esp-web-install-button {
+    display: block;
+    margin: 24px 0;
+  }
+  code { background: #21262d; padding: 2px 6px; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <h1>Flash CYD Secure OS</h1>
+  <p>This page flashes the firmware directly from your browser over USB. No software install needed — just Chrome or Edge.</p>
+
+  <div class="step">
+    <strong>Step 1.</strong> Plug your ESP32-2432S028 (CYD) into this computer with a USB-C data cable (not a charge-only cable).
+  </div>
+  <div class="step">
+    <strong>Step 2.</strong> Click the button below, then pick the CYD's serial port when your browser asks.
+  </div>
+
+  <esp-web-install-button manifest="manifest.json">
+    <button slot="activate">Connect &amp; Install</button>
+    <span slot="unsupported">
+      Your browser doesn't support this. Please open this page in
+      <strong>Google Chrome</strong> or <strong>Microsoft Edge</strong> on a
+      desktop computer (not mobile — WebSerial isn't available there yet).
+    </span>
+    <span slot="not-allowed">
+      This page needs to be served over HTTPS for this to work (GitHub
+      Pages does this automatically).
+    </span>
+  </esp-web-install-button>
+
+  <div class="warn">
+    <strong>If nothing shows up when picking a port:</strong> install the
+    CP2102/CH340 USB driver for your OS (search "CP2102 driver" or
+    "CH340 driver" — whichever chip your CYD board uses, printed near the
+    USB port) and reconnect.
+  </div>
+
+  <div class="step">
+    <strong>Step 3.</strong> Follow the on-screen prompts (Install → it erases and writes the new firmware → done). The device reboots into CYD Secure OS automatically.
+  </div>
+
+  <p style="color:#8b949e; font-size:0.9em; margin-top:40px;">
+    This page is built by the GitHub Actions workflow in this repo, which
+    compiles the firmware for you every time the code changes — you never
+    need PlatformIO or a compiler installed locally.
+  </p>
+</body>
+</html>
