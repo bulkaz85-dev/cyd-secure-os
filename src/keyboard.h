@@ -1,5 +1,6 @@
 #pragma once
 #include <TFT_eSPI.h>
+#include <vector>
 #include "ui_helpers.h"
 #include "touch.h"
 
