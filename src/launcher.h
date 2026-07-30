@@ -1,13 +1,9 @@
 #pragma once
 #include <TFT_eSPI.h>
+#include <vector>
 #include "ui_helpers.h"
 #include "touch.h"
 #include "lock_manager.h"
-#include "vault.h"
-#include "notes_app.h"
-#include "wiki_app.h"
-#include "games/snake.h"
-#include "power.h"
 
 enum class AppId { NOTES, WIKI, GALLERY, SNAKE, SETTINGS, SLEEP };
 
