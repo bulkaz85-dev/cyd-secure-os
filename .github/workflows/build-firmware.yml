@@ -1,0 +1,42 @@
+name: Build CYD Firmware
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PlatformIO
+        run: pip install --upgrade platformio
+
+      - name: Build firmware
+        run: pio run -e cyd
+
+      - name: Collect flashable binaries
+        run: |
+          mkdir -p docs/firmware
+          cp .pio/build/cyd/bootloader.bin docs/firmware/
+          cp .pio/build/cyd/partitions.bin docs/firmware/
+          cp .pio/build/cyd/firmware.bin docs/firmware/
+          BOOT_APP0=$(find ~/.platformio -name boot_app0.bin | head -n1)
+          cp "$BOOT_APP0" docs/firmware/boot_app0.bin
+
+      - name: Commit built firmware for the web flasher
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/firmware
+          git diff --staged --quiet && echo "No firmware changes" || \
+            (git commit -m "Auto-build firmware [skip ci]" && git push)
