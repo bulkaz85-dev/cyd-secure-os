@@ -1,6 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include <SD.h>
+#include <vector>
 #include "crypto.h"
 
 // ============================================================
